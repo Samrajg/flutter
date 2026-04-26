@@ -1,0 +1,45 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MaterialApp(home: MyApp()));
+
+class MyApp extends StatefulWidget {
+  @override
+  createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+
+  TextEditingController text = TextEditingController();
+  String output = "";
+
+  void speak() {
+    setState(() {
+      output = text.text; // simulate speech
+    });
+
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text("Speaking: " + text.text)),
+    );
+  }
+
+  @override
+  Widget build(context) {
+    return Scaffold(
+      appBar: AppBar(title: Text("Text to Speech")),
+
+      body: Column(
+        children: [
+
+          TextField(controller: text),
+
+          ElevatedButton(
+            onPressed: speak,
+            child: Text("Speak"),
+          ),
+
+          Text(output),
+        ],
+      ),
+    );
+  }
+}
